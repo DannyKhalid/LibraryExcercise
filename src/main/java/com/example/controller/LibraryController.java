@@ -26,7 +26,7 @@ public class LibraryController {
         if (StringUtils.isNoneBlank(filter)) {
             books = libraryService.findByGenreContains(filter);
         } else {
-            books= libraryService.findAll();
+            books = libraryService.findAll();
         }
         return books;
     }
