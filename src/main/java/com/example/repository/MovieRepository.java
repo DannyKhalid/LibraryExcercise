@@ -1,10 +1,9 @@
 package com.example.repository;
 
-import com.example.model.Books;
+
 import com.example.model.Movie;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+
 
 import java.util.List;
 
