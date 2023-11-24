@@ -20,7 +20,7 @@ public class LibraryUserController {
 
 
     @GetMapping("/users")
-    public List<LibraryUser> getAllBooks(@PathParam("filter") String filter) {
+    public List<LibraryUser> getAllUsers(@PathParam("filter") String filter) {
         List<LibraryUser> users = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
             users = libraryUserService.findByNameContains(filter);
