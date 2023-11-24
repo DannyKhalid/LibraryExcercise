@@ -32,5 +32,18 @@ public class LibraryController {
         return libraries;
     }
 
+    @GetMapping("/books")
+    public List<Library> getAllBooks(@PathParam("filter") String filter) {
+        List<Library> libraries = Collections.emptyList();
+        if (StringUtils.isNoneBlank(filter)) {
+            libraries = libraryService.findByTitleContains(filter);
+        } else {
+            libraries = libraryService.findAll();
+        }
+        return libraries;
+    }
+
+
+
 
 }

@@ -10,8 +10,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Getter
-@DiscriminatorColumn(name = "Library")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 
 @Setter
 public class Library {
@@ -23,7 +22,7 @@ public class Library {
     private String title;
 
 
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne
     private LibraryUser libraryUser;
 

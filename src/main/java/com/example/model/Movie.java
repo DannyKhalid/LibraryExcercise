@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-@DiscriminatorValue("Movie")
 @Entity
 public class Movie extends Library{
 

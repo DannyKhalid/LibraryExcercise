@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@DiscriminatorValue("Periodicals")
 @NoArgsConstructor
 @Entity
 public class Periodicals extends Library {

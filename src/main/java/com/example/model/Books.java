@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@DiscriminatorValue("Books")
 @NoArgsConstructor
 @Entity
 public class Books extends Library{
