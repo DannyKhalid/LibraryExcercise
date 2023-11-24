@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.model.Books;
+import com.example.model.Library;
 import com.example.service.LibraryService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +20,14 @@ public class LibraryController {
         this.libraryService = libraryService;
     }
 
-    @GetMapping("/books")
-    public List<Books> getAllBooks(@PathParam("filter") String filter) {
-        List<Books> books = Collections.emptyList();
+    @GetMapping("/library")
+    public List<Library> getAllLibraries(@PathParam("filter") String filter) {
+        List<Library> libraries = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
-            books = libraryService.findByGenreContains(filter);
+            libraries = libraryService.findByTitleContains(filter);
         } else {
-            books = libraryService.findAll();
+            libraries = libraryService.findAll();
         }
-        return books;
+        return libraries;
     }
 }

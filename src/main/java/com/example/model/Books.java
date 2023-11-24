@@ -7,19 +7,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@DiscriminatorValue("Books")
 @NoArgsConstructor
 @Entity
-public class Books {
+public class Books extends Library{
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String title;
+
+
     private String author;
     private String genre;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private AppUsers appUsers;
 
 }

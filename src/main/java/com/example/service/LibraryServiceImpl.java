@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.model.Books;
+import com.example.model.Library;
 import com.example.repository.LibraryRepo;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +18,21 @@ public class LibraryServiceImpl implements LibraryService {
 
 
     @Override
-    public List<Books> findAll() {
-
-        List<Books> libraries = new ArrayList<>();
-        Iterable<Books> messageIts = libraryRepo.findAll();
-        messageIts.forEach(libraries::add);
-
+    public List<Library> findAll() {
+        List<Library> libraries = new ArrayList<>();
+        Iterable<Library> librariesItr = libraryRepo.findAll();
+        librariesItr.forEach(libraries::add);
         return libraries;
 
     }
 
     @Override
-    public List<Books> findByGenreContains(String filter) {
-      return libraryRepo.findByGenreContains(filter);
+    public Library save(Library library) {
+        return libraryRepo.save(library);
+    }
 
+    @Override
+    public List<Library> findByTitleContains(String filter) {
+        return libraryRepo.findByTitleContains(filter);
     }
 }

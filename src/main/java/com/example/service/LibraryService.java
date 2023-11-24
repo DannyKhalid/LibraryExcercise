@@ -1,14 +1,17 @@
 package com.example.service;
 
-import com.example.model.Books;
+import com.example.model.Library;
 
 import java.util.List;
 
 public interface LibraryService {
 
-    List<Books> findAll();
+    List<Library> findAll();
 
-    List<Books> findByGenreContains(String filter);
+    Library save(Library library);
+
+    List<Library> findByTitleContains(String filter);
+
 
 
 

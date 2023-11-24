@@ -8,21 +8,18 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@DiscriminatorValue("Movie")
 @Entity
-public class Movie {
+public class Movie extends Library{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
 
     private String leadActor;
     private String director;
     private String screenWriter;
     private String releaseDate;
-    private String genre;
     private int Rating;
+    private String genre;
 
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private AppUsers appUsers;
 }
