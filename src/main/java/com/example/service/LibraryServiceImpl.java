@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.Books;
 import com.example.model.Library;
 import com.example.repository.LibraryRepo;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LibraryServiceImpl implements LibraryService {
@@ -15,6 +17,7 @@ public class LibraryServiceImpl implements LibraryService {
     public LibraryServiceImpl(LibraryRepo libraryRepo) {
         this.libraryRepo = libraryRepo;
     }
+
 
 
     @Override
@@ -27,6 +30,30 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public List<Library> findAllBooks() {
+        List<Library> books = new ArrayList<>();
+        Iterable<Library> librariesItr = libraryRepo.findAllBooks();
+        librariesItr.forEach(books::add);
+        return books;
+    }
+
+    @Override
+    public List<Library> findAllMovies() {
+        List<Library> movies = new ArrayList<>();
+        Iterable<Library> librariesItr = libraryRepo.findAllMovies();
+        librariesItr.forEach(movies::add);
+        return movies;
+    }
+
+    @Override
+    public List<Library> findAllPeriodicals() {
+        List<Library> periodicals = new ArrayList<>();
+        Iterable<Library> librariesItr = libraryRepo.findAllPeriodicals();
+        librariesItr.forEach(periodicals::add);
+        return periodicals;
+    }
+
+    @Override
     public Library save(Library library) {
         return libraryRepo.save(library);
     }
@@ -34,5 +61,31 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<Library> findByTitleContains(String filter) {
         return libraryRepo.findByTitleContains(filter);
+    }
+
+    @Override
+    public List<Library> findByTitleContainsBooks(String filter) {
+        return libraryRepo.bookFindByTitleContains(filter);
+    }
+
+    @Override
+    public List<Library> movieFindByTitleContains(String filter) {
+        return libraryRepo.movieFindByTitleContains(filter);
+    }
+
+    @Override
+    public List<Library> periodicalsFindByTitleContains(String filter) {
+        return libraryRepo.periodicalsFindByTitleContains(filter);
+    }
+
+    @Override
+    public void delete(long id) {
+        libraryRepo.deleteById(id);
+    }
+
+    @Override
+    public Library findById(long id) {
+        Optional<Library> books = libraryRepo.findById(id);
+        return books.orElseGet(() -> new Books("Nothing found"));
     }
 }

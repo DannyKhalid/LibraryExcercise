@@ -2,6 +2,7 @@ package com.example.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Setter
 public class Library {
 
@@ -22,8 +23,10 @@ public class Library {
     private String title;
 
 
-//    @JsonBackReference
+
     @ManyToOne
     private LibraryUser libraryUser;
+
+
 
 }

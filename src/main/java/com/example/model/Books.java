@@ -11,6 +11,10 @@ import lombok.Setter;
 @Entity
 public class Books extends Library{
 
+    public Books(String author){
+        this.author = author;
+    }
+
 
 
 

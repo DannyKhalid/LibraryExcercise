@@ -2,11 +2,12 @@ package com.example.controller;
 
 import com.example.model.Books;
 import com.example.model.Library;
+import com.example.model.Movie;
 import com.example.service.LibraryService;
+import com.example.service.LibraryUserService;
 import jakarta.websocket.server.PathParam;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,15 +35,73 @@ public class LibraryController {
 
     @GetMapping("/books")
     public List<Library> getAllBooks(@PathParam("filter") String filter) {
-        List<Library> libraries = Collections.emptyList();
+        List<Library> books = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
-            libraries = libraryService.findByTitleContains(filter);
+            books = libraryService.findByTitleContainsBooks(filter);
         } else {
-            libraries = libraryService.findAll();
+            books = libraryService.findAllBooks();
         }
-        return libraries;
+        return books;
     }
 
+    @GetMapping("/books/{id}")
+    public Library getBookById(@PathVariable long id) {
+
+        return libraryService.findById(id);
+
+    }
+
+    @GetMapping("/movies")
+    public List<Library> getAllMovies(@PathParam("filter") String filter) {
+        List<Library> movies = Collections.emptyList();
+        if (StringUtils.isNoneBlank(filter)) {
+            movies = libraryService.movieFindByTitleContains(filter);
+        } else {
+            movies = libraryService.findAllMovies();
+        }
+        return movies;
+    }
+
+    @GetMapping("/periodicals")
+    public List<Library> getAllPeriodicals(@PathParam("filter") String filter) {
+        List<Library> periodicals = Collections.emptyList();
+        if (StringUtils.isNoneBlank(filter)) {
+            periodicals = libraryService.findByTitleContainsBooks(filter);
+        } else {
+            periodicals = libraryService.periodicalsFindByTitleContains(filter);
+        }
+        return periodicals;
+    }
+
+    @PostMapping("/movies")
+    public Library createMovie(@RequestBody Movie movie){
+        return libraryService.save(movie);
+    }
+
+    @PutMapping("/movies")
+    public Library updateMovie(@RequestBody Movie movie){
+        return libraryService.save(movie);
+    }
+
+    @DeleteMapping("movies/{id}")
+    public void deleteMovie(@PathVariable long id) {
+        libraryService.delete(id);
+    }
+
+    @PostMapping("/books")
+    public Library createBook(@RequestBody Books books){
+        return libraryService.save(books);
+    }
+
+    @PutMapping("/books")
+    public Library updateBook(@RequestBody Books books){
+        return libraryService.save(books);
+    }
+
+    @DeleteMapping("books/{id}")
+    public void deleteBook(@PathVariable long id) {
+        libraryService.delete(id);
+    }
 
 
 
