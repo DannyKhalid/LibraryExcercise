@@ -3,15 +3,18 @@ package com.example.controller;
 import com.example.model.Books;
 import com.example.model.Library;
 import com.example.model.Movie;
+import com.example.model.Periodicals;
 import com.example.service.LibraryService;
 import com.example.service.LibraryUserService;
 import jakarta.websocket.server.PathParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @RestController
 public class LibraryController {
 
@@ -36,6 +39,7 @@ public class LibraryController {
     @GetMapping("/books")
     public List<Library> getAllBooks(@PathParam("filter") String filter) {
         List<Library> books = Collections.emptyList();
+        log.debug(filter);
         if (StringUtils.isNoneBlank(filter)) {
             books = libraryService.findByTitleContainsBooks(filter);
         } else {
@@ -80,9 +84,9 @@ public class LibraryController {
     public List<Library> getAllPeriodicals(@PathParam("filter") String filter) {
         List<Library> periodicals = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
-            periodicals = libraryService.findByTitleContainsBooks(filter);
-        } else {
             periodicals = libraryService.periodicalsFindByTitleContains(filter);
+        } else {
+            periodicals = libraryService.findAllPeriodicals();
         }
         return periodicals;
     }
@@ -114,6 +118,26 @@ public class LibraryController {
 
     @DeleteMapping("books/{id}")
     public void deleteBook(@PathVariable long id) {
+        libraryService.delete(id);
+    }
+
+    @PostMapping("/periodicals")
+    public Library createPeriodical(@RequestBody Periodicals periodicals){
+        return libraryService.save(periodicals);
+    }
+
+    @PutMapping("/periodicals")
+    public Library updatePeriodical(@RequestBody Periodicals periodicals){
+        return libraryService.save(periodicals);
+    }
+
+    @PutMapping("/periodicals/{id}")
+    public Library updatePeriodicalId(@RequestBody Periodicals periodicals){
+        return libraryService.save(periodicals);
+    }
+
+    @DeleteMapping("periodicals/{id}")
+    public void deletePeriodical(@PathVariable long id) {
         libraryService.delete(id);
     }
 
