@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -69,7 +70,7 @@ public class MovieMockTests {
     public void updateMovie() throws Exception {
 
 
-        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/movies/1")
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/movies/3")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -95,9 +96,69 @@ public class MovieMockTests {
         movie = mapper.readValue(contentAsString, Movie.class);
 
 
-        assertEquals("Updated Book", movie.getTitle());
+        assertEquals("Updated Movie", movie.getTitle());
 
     }
 
+    @Test
+    public void testDeleteMovie() throws Exception {
+
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/movies/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+
+        Movie movie = mapper.readValue(contentAsString, Movie.class);
+
+        System.out.println(movie.getTitle());
+
+
+
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.delete("/movies/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/movies/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        MvcResult result1 = resultActions.andReturn();
+        String contentAsString1 = result1.getResponse().getContentAsString();
+
+        Movie movies = mapper.readValue(contentAsString1, Movie.class);
+
+        assertEquals("Inception", movie.getTitle());
+        assertEquals("Nothing found", movies.getGenre());
+
+    }
+
+    @Test
+    public void testGetAllMovies() throws Exception{
+
+        int expectedLength = 2;
+
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/movies")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+
+        Movie[] movies = mapper.readValue(contentAsString, Movie[].class);
+
+        assertAll("Testing from a test-data.sql file",
+                () -> assertEquals(expectedLength, movies.length),
+                () -> assertEquals("Inception", movies[0].getTitle()),
+                () -> assertEquals("Fight Club", movies[1].getTitle()),
+                () -> assertEquals("Drama", movies[1].getGenre()));
+
+
+    }
 
 }

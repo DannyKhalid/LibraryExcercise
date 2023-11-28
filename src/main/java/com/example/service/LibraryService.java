@@ -2,6 +2,8 @@ package com.example.service;
 
 import com.example.model.Books;
 import com.example.model.Library;
+import com.example.model.Movie;
+import com.example.model.Periodicals;
 
 import java.util.List;
 
@@ -29,5 +31,9 @@ public interface LibraryService {
 
     void delete(long id);
 
-    Library findById(long id);
+    Books findBooksById(long id);
+
+    Movie findMovieById(long id);
+
+    Periodicals findPeriodicalsById(long id);
 }

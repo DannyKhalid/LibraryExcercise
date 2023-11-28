@@ -15,6 +15,8 @@ public class Periodicals extends Library {
 
     private String publicationDate;
 
-
+    public Periodicals(String publicationDate){
+        this.publicationDate = publicationDate;
+    }
 
 }

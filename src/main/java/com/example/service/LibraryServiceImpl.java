@@ -2,6 +2,8 @@ package com.example.service;
 
 import com.example.model.Books;
 import com.example.model.Library;
+import com.example.model.Movie;
+import com.example.model.Periodicals;
 import com.example.repository.LibraryRepo;
 import org.springframework.stereotype.Service;
 
@@ -83,9 +85,42 @@ public class LibraryServiceImpl implements LibraryService {
         libraryRepo.deleteById(id);
     }
 
+//    @Override
+//    public Library findById(long id) {
+//        Optional<Library> books = libraryRepo.findById(id);
+//        return (Books) books.orElseGet(() -> new Books("Nothing found"));
+//    }
+
     @Override
-    public Library findById(long id) {
-        Optional<Library> books = libraryRepo.findById(id);
-        return books.orElseGet(() -> new Books("Nothing found"));
+    public Books findBooksById(long id) {
+        Optional<Library> library = libraryRepo.findById(id);
+        if (library.isPresent() && library.get() instanceof Books) {
+            return (Books) library.get();
+        } else {return new Books("Nothing found");
+
+        }
+    }
+
+
+
+    @Override
+    public Movie findMovieById(long id) {
+        Optional<Library> library = libraryRepo.findById(id);
+        if (library.isPresent() && library.get() instanceof Movie) {
+            return (Movie) library.get();
+        } else {return new Movie("Nothing found");
+
+        }
+    }
+
+
+    @Override
+    public Periodicals findPeriodicalsById(long id) {
+        Optional<Library> library = libraryRepo.findById(id);
+        if (library.isPresent() && library.get() instanceof Periodicals) {
+            return (Periodicals) library.get();
+        } else {return new Periodicals("Nothing found");
+
+        }
     }
 }

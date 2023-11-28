@@ -20,5 +20,8 @@ public class Movie extends Library{
     private int Rating;
     private String genre;
 
+    public Movie(String genre){
+        this.genre = genre;
+    }
 
 }

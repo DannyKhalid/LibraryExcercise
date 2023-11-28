@@ -47,7 +47,21 @@ public class LibraryController {
     @GetMapping("/books/{id}")
     public Library getBookById(@PathVariable long id) {
 
-        return libraryService.findById(id);
+        return libraryService.findBooksById(id);
+
+    }
+
+    @GetMapping("/movies/{id}")
+    public Library getMovieById(@PathVariable long id) {
+
+        return libraryService.findMovieById(id);
+
+    }
+
+    @GetMapping("/periodicals/{id}")
+    public Library getPeriodicalsById(@PathVariable long id) {
+
+        return libraryService.findPeriodicalsById(id);
 
     }
 
