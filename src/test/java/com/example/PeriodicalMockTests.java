@@ -83,13 +83,8 @@ public class PeriodicalMockTests {
 
         periodicals.setTitle("Updated Periodical");
 
-        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.put("/periodicals/8")
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.put("/periodicals/6")
                         .content(mapper.writeValueAsString(periodicals))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-
-        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/6")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());

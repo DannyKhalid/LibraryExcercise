@@ -127,11 +127,13 @@ public class LibraryController {
 
     @PutMapping("/periodicals")
     public Lendable updatePeriodical(@RequestBody Periodicals periodicals){
+        log.debug(String.valueOf(periodicals.getId()));
         return libraryService.save(periodicals);
     }
 
     @PutMapping("/periodicals/{id}")
     public Lendable updatePeriodicalId(@RequestBody Periodicals periodicals){
+        log.debug(String.valueOf(periodicals.getId()));
         return libraryService.save(periodicals);
     }
 
