@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Periodicals extends Library {
+public class Periodicals extends Lendable {
 
 
 

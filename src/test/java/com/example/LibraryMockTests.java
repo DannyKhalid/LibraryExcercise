@@ -1,7 +1,7 @@
 package com.example;
 
 
-import com.example.model.Library;
+import com.example.model.Lendable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class LibraryMockTests {
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
 
-        Library[] libraries = mapper.readValue(contentAsString, Library[].class);
+        Lendable[] libraries = mapper.readValue(contentAsString, Lendable[].class);
 
         assertAll("Testing from a test-data.sql file",
                 () -> assertEquals(expectedLength, libraries.length),

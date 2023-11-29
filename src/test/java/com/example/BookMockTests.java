@@ -1,7 +1,6 @@
 package com.example;
 
 import com.example.model.Books;
-import com.example.model.Library;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +92,7 @@ public class BookMockTests {
 
         book = mapper.readValue(contentAsString, Books.class);
 
-
+        System.out.println(book.getId());
         assertEquals("Updated Book", book.getAuthor());
 
     }

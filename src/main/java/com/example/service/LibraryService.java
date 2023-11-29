@@ -1,7 +1,7 @@
 package com.example.service;
 
 import com.example.model.Books;
-import com.example.model.Library;
+import com.example.model.Lendable;
 import com.example.model.Movie;
 import com.example.model.Periodicals;
 
@@ -9,24 +9,24 @@ import java.util.List;
 
 public interface LibraryService {
 
-    List<Library> findAll();
+    List<Lendable> findAll();
 
-    List<Library> findAllBooks();
+    List<Lendable> findAllBooks();
 
-    List<Library> findAllMovies();
+    List<Lendable> findAllMovies();
 
-    List<Library> findAllPeriodicals();
+    List<Lendable> findAllPeriodicals();
 
-    Library save(Library library);
+    Lendable save(Lendable library);
 
-    List<Library> findByTitleContains(String filter);
+    List<Lendable> findByTitleContains(String filter);
 
 
-    List<Library> findByTitleContainsBooks(String filter);
+    List<Lendable> findByTitleContainsBooks(String filter);
 
-    List<Library> movieFindByTitleContains(String filter);
+    List<Lendable> movieFindByTitleContains(String filter);
 
-    List<Library> periodicalsFindByTitleContains(String filter);
+    List<Lendable> periodicalsFindByTitleContains(String filter);
 
 
     void delete(long id);

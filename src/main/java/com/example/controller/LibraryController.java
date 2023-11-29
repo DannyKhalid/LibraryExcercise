@@ -1,11 +1,10 @@
 package com.example.controller;
 
 import com.example.model.Books;
-import com.example.model.Library;
+import com.example.model.Lendable;
 import com.example.model.Movie;
 import com.example.model.Periodicals;
 import com.example.service.LibraryService;
-import com.example.service.LibraryUserService;
 import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +25,8 @@ public class LibraryController {
     }
 
     @GetMapping("/library")
-    public List<Library> getAllLibraries(@PathParam("filter") String filter) {
-        List<Library> libraries = Collections.emptyList();
+    public List<Lendable> getAllLibraries(@PathParam("filter") String filter) {
+        List<Lendable> libraries = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
             libraries = libraryService.findByTitleContains(filter);
         } else {
@@ -37,8 +36,8 @@ public class LibraryController {
     }
 
     @GetMapping("/books")
-    public List<Library> getAllBooks(@PathParam("filter") String filter) {
-        List<Library> books = Collections.emptyList();
+    public List<Lendable> getAllBooks(@PathParam("filter") String filter) {
+        List<Lendable> books = Collections.emptyList();
         log.debug(filter);
         if (StringUtils.isNoneBlank(filter)) {
             books = libraryService.findByTitleContainsBooks(filter);
@@ -49,29 +48,29 @@ public class LibraryController {
     }
 
     @GetMapping("/books/{id}")
-    public Library getBookById(@PathVariable long id) {
+    public Lendable getBookById(@PathVariable long id) {
 
         return libraryService.findBooksById(id);
 
     }
 
     @GetMapping("/movies/{id}")
-    public Library getMovieById(@PathVariable long id) {
+    public Lendable getMovieById(@PathVariable long id) {
 
         return libraryService.findMovieById(id);
 
     }
 
     @GetMapping("/periodicals/{id}")
-    public Library getPeriodicalsById(@PathVariable long id) {
+    public Lendable getPeriodicalsById(@PathVariable long id) {
 
         return libraryService.findPeriodicalsById(id);
 
     }
 
     @GetMapping("/movies")
-    public List<Library> getAllMovies(@PathParam("filter") String filter) {
-        List<Library> movies = Collections.emptyList();
+    public List<Lendable> getAllMovies(@PathParam("filter") String filter) {
+        List<Lendable> movies = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
             movies = libraryService.movieFindByTitleContains(filter);
         } else {
@@ -81,8 +80,8 @@ public class LibraryController {
     }
 
     @GetMapping("/periodicals")
-    public List<Library> getAllPeriodicals(@PathParam("filter") String filter) {
-        List<Library> periodicals = Collections.emptyList();
+    public List<Lendable> getAllPeriodicals(@PathParam("filter") String filter) {
+        List<Lendable> periodicals = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
             periodicals = libraryService.periodicalsFindByTitleContains(filter);
         } else {
@@ -92,12 +91,12 @@ public class LibraryController {
     }
 
     @PostMapping("/movies")
-    public Library createMovie(@RequestBody Movie movie){
+    public Lendable createMovie(@RequestBody Movie movie){
         return libraryService.save(movie);
     }
 
     @PutMapping("/movies")
-    public Library updateMovie(@RequestBody Movie movie){
+    public Lendable updateMovie(@RequestBody Movie movie){
         return libraryService.save(movie);
     }
 
@@ -107,12 +106,12 @@ public class LibraryController {
     }
 
     @PostMapping("/books")
-    public Library createBook(@RequestBody Books books){
+    public Lendable createBook(@RequestBody Books books){
         return libraryService.save(books);
     }
 
     @PutMapping("/books")
-    public Library updateBook(@RequestBody Books books){
+    public Lendable updateBook(@RequestBody Books books){
         return libraryService.save(books);
     }
 
@@ -122,17 +121,17 @@ public class LibraryController {
     }
 
     @PostMapping("/periodicals")
-    public Library createPeriodical(@RequestBody Periodicals periodicals){
+    public Lendable createPeriodical(@RequestBody Periodicals periodicals){
         return libraryService.save(periodicals);
     }
 
     @PutMapping("/periodicals")
-    public Library updatePeriodical(@RequestBody Periodicals periodicals){
+    public Lendable updatePeriodical(@RequestBody Periodicals periodicals){
         return libraryService.save(periodicals);
     }
 
     @PutMapping("/periodicals/{id}")
-    public Library updatePeriodicalId(@RequestBody Periodicals periodicals){
+    public Lendable updatePeriodicalId(@RequestBody Periodicals periodicals){
         return libraryService.save(periodicals);
     }
 

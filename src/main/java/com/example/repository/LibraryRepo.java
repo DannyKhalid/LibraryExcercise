@@ -1,37 +1,35 @@
 package com.example.repository;
 
 
-import com.example.model.Books;
-import com.example.model.Library;
+import com.example.model.Lendable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface LibraryRepo extends CrudRepository<Library, Long> {
+public interface LibraryRepo extends CrudRepository<Lendable, Long> {
 
 
-    List<Library> findByTitleContains(String filter);
+    List<Lendable> findByTitleContains(String filter);
     @Query("SELECT b FROM Books b")
-    List<Library> findAllBooks();
+    List<Lendable> findAllBooks();
 
 
     @Query("SELECT b FROM Books b where b.title like %?1%")
-    List<Library> bookFindByTitleContains(String filter);
+    List<Lendable> bookFindByTitleContains(String filter);
 
 
     @Query("SELECT m FROM Movie m")
-    List<Library> findAllMovies();
+    List<Lendable> findAllMovies();
     @Query("SELECT m FROM Movie m where m.title like %?1%")
-    List<Library> movieFindByTitleContains(String filter);
+    List<Lendable> movieFindByTitleContains(String filter);
 
     @Query("SELECT p FROM Periodicals p")
-    List<Library> findAllPeriodicals();
+    List<Lendable> findAllPeriodicals();
     @Query("SELECT p FROM Periodicals p where p.title like %?1%")
-    List<Library> periodicalsFindByTitleContains(String filter);
+    List<Lendable> periodicalsFindByTitleContains(String filter);
 
 
 }

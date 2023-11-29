@@ -58,7 +58,7 @@ public class PeriodicalMockTests {
         periodicals = mapper.readValue(contentAsString, Periodicals.class);
 
 
-        assertEquals(8, periodicals.getId());
+        assertEquals(5, periodicals.getId());
         assertEquals("The Article", periodicals.getTitle());
         assertEquals("1999-01-01",periodicals.getPublicationDate());
 
@@ -69,7 +69,7 @@ public class PeriodicalMockTests {
     public void updatePeriodical() throws Exception {
 
 
-        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/5")
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/6")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -83,13 +83,13 @@ public class PeriodicalMockTests {
 
         periodicals.setTitle("Updated Periodical");
 
-        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.put("/periodicals/7")
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.put("/periodicals/8")
                         .content(mapper.writeValueAsString(periodicals))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/7")
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/6")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());

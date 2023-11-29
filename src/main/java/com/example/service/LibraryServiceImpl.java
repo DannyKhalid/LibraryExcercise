@@ -1,7 +1,7 @@
 package com.example.service;
 
 import com.example.model.Books;
-import com.example.model.Library;
+import com.example.model.Lendable;
 import com.example.model.Movie;
 import com.example.model.Periodicals;
 import com.example.repository.LibraryRepo;
@@ -23,60 +23,60 @@ public class LibraryServiceImpl implements LibraryService {
 
 
     @Override
-    public List<Library> findAll() {
-        List<Library> libraries = new ArrayList<>();
-        Iterable<Library> librariesItr = libraryRepo.findAll();
+    public List<Lendable> findAll() {
+        List<Lendable> libraries = new ArrayList<>();
+        Iterable<Lendable> librariesItr = libraryRepo.findAll();
         librariesItr.forEach(libraries::add);
         return libraries;
 
     }
 
     @Override
-    public List<Library> findAllBooks() {
-        List<Library> books = new ArrayList<>();
-        Iterable<Library> librariesItr = libraryRepo.findAllBooks();
+    public List<Lendable> findAllBooks() {
+        List<Lendable> books = new ArrayList<>();
+        Iterable<Lendable> librariesItr = libraryRepo.findAllBooks();
         librariesItr.forEach(books::add);
         return books;
     }
 
     @Override
-    public List<Library> findAllMovies() {
-        List<Library> movies = new ArrayList<>();
-        Iterable<Library> librariesItr = libraryRepo.findAllMovies();
+    public List<Lendable> findAllMovies() {
+        List<Lendable> movies = new ArrayList<>();
+        Iterable<Lendable> librariesItr = libraryRepo.findAllMovies();
         librariesItr.forEach(movies::add);
         return movies;
     }
 
     @Override
-    public List<Library> findAllPeriodicals() {
-        List<Library> periodicals = new ArrayList<>();
-        Iterable<Library> librariesItr = libraryRepo.findAllPeriodicals();
+    public List<Lendable> findAllPeriodicals() {
+        List<Lendable> periodicals = new ArrayList<>();
+        Iterable<Lendable> librariesItr = libraryRepo.findAllPeriodicals();
         librariesItr.forEach(periodicals::add);
         return periodicals;
     }
 
     @Override
-    public Library save(Library library) {
+    public Lendable save(Lendable library) {
         return libraryRepo.save(library);
     }
 
     @Override
-    public List<Library> findByTitleContains(String filter) {
+    public List<Lendable> findByTitleContains(String filter) {
         return libraryRepo.findByTitleContains(filter);
     }
 
     @Override
-    public List<Library> findByTitleContainsBooks(String filter) {
+    public List<Lendable> findByTitleContainsBooks(String filter) {
         return libraryRepo.bookFindByTitleContains(filter);
     }
 
     @Override
-    public List<Library> movieFindByTitleContains(String filter) {
+    public List<Lendable> movieFindByTitleContains(String filter) {
         return libraryRepo.movieFindByTitleContains(filter);
     }
 
     @Override
-    public List<Library> periodicalsFindByTitleContains(String filter) {
+    public List<Lendable> periodicalsFindByTitleContains(String filter) {
         return libraryRepo.periodicalsFindByTitleContains(filter);
     }
 
@@ -93,7 +93,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Books findBooksById(long id) {
-        Optional<Library> library = libraryRepo.findById(id);
+        Optional<Lendable> library = libraryRepo.findById(id);
         if (library.isPresent() && library.get() instanceof Books) {
             return (Books) library.get();
         } else {return new Books("Nothing found");
@@ -105,7 +105,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Movie findMovieById(long id) {
-        Optional<Library> library = libraryRepo.findById(id);
+        Optional<Lendable> library = libraryRepo.findById(id);
         if (library.isPresent() && library.get() instanceof Movie) {
             return (Movie) library.get();
         } else {return new Movie("Nothing found");
@@ -116,7 +116,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Periodicals findPeriodicalsById(long id) {
-        Optional<Library> library = libraryRepo.findById(id);
+        Optional<Lendable> library = libraryRepo.findById(id);
         if (library.isPresent() && library.get() instanceof Periodicals) {
             return (Periodicals) library.get();
         } else {return new Periodicals("Nothing found");

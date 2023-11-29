@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Movie extends Library{
+public class Movie extends Lendable {
 
 
 

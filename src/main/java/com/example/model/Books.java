@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Books extends Library{
+public class Books extends Lendable {
 
     public Books(String author){
         this.author = author;
