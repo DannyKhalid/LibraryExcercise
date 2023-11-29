@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//@Entity
+@Entity
 public class Librarian {
 
     @Id
@@ -18,7 +18,6 @@ public class Librarian {
     private String address;
     private int phoneNumber;
     private String email;
-
 
 
 }
