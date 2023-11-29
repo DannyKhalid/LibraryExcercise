@@ -66,8 +66,8 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<Lendable> findByAuthorContains(String filter) {
-        return libraryRepo.findByAuthorContains(filter);
+    public List<Lendable> findByAuthorContains(String author) {
+        return libraryRepo.findByAuthorContains(author);
     }
 
     @Override

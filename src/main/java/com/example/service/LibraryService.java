@@ -21,7 +21,7 @@ public interface LibraryService {
 
     List<Lendable> findByTitleContains(String filter);
 
-    List<Lendable> findByAuthorContains(String filter);
+    List<Lendable> findByAuthorContains(String author);
 
 
     List<Lendable> findByTitleContainsBooks(String filter);

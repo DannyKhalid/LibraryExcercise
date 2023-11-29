@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -83,16 +84,12 @@ public class PeriodicalMockTests {
 
         periodicals.setTitle("Updated Periodical");
 
-        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.put("/periodicals/8")
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.put("/periodicals")
                         .content(mapper.writeValueAsString(periodicals))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/6")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
 
 
         result = resultActions.andReturn();
@@ -102,6 +99,43 @@ public class PeriodicalMockTests {
 
 
         assertEquals("Updated Periodical", periodicals.getTitle());
+
+    }
+
+    @Test
+    public void testDeletePeriodical() throws Exception {
+
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/6")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+
+        Periodicals periodicals = mapper.readValue(contentAsString, Periodicals.class);
+
+        System.out.println(periodicals.getPublicationDate());
+
+
+
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.delete("/periodicals/6")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/periodicals/6")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        MvcResult result1 = resultActions.andReturn();
+        String contentAsString1 = result1.getResponse().getContentAsString();
+
+        Periodicals periodicals1 = mapper.readValue(contentAsString1, Periodicals.class);
+
+        assertEquals("2022-09-15", periodicals.getPublicationDate());
+        assertEquals("Nothing found", periodicals1.getPublicationDate());
 
     }
 }

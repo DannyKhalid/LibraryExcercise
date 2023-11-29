@@ -7,11 +7,13 @@ import com.example.model.Periodicals;
 import com.example.service.LibraryService;
 import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -30,9 +32,6 @@ public class LibraryController {
         if (StringUtils.isNoneBlank(filter)) {
             libraries = libraryService.findByTitleContains(filter);
         }
-        if (StringUtils.isNoneBlank((filter))){
-            libraries = libraryService.findByAuthorContains(filter);
-        }
         else {
             libraries = libraryService.findAll();
         }
@@ -40,16 +39,51 @@ public class LibraryController {
     }
 
     @GetMapping("/books")
-    public List<Lendable> getAllBooks(@PathParam("filter") String filter) {
-        List<Lendable> books = Collections.emptyList();
-        log.debug(filter);
-        if (StringUtils.isNoneBlank(filter)) {
-            books = libraryService.findByTitleContainsBooks(filter);
-        } else {
-            books = libraryService.findAllBooks();
+    public ResponseEntity<List<Lendable>> getAllBooks(@RequestParam Map<String, String> allParams) {
+
+        if (allParams.isEmpty()) {
+            return ResponseEntity.ok(libraryService.findAllBooks());
         }
-        return books;
+
+
+        List<Lendable> books = Collections.emptyList();
+        String title = allParams.get("title");
+        String author = allParams.get("author");
+
+        if (StringUtils.isNoneBlank(title)) {
+            books = libraryService.findByTitleContains(title);
+        } else if (StringUtils.isNoneBlank(author)) {
+            books = libraryService.findByAuthorContains(author);
+        } else {
+
+            return ResponseEntity.badRequest().body(books);
+        }
+
+        return ResponseEntity.ok(books);
     }
+
+
+
+
+
+//    @GetMapping("/books")
+//    public List<Lendable> getAllBooks() {
+//        List<Lendable> books = Collections.emptyList();
+//        books = libraryService.findAllBooks();
+//        return books;}
+
+
+//    @GetMapping("/books")
+//    public List<Lendable> getAllBooks2(@PathParam("title") String title) {
+//        List<Lendable> books = Collections.emptyList();
+//
+//        if (StringUtils.isNoneBlank(title)) {
+//            books = libraryService.findByTitleContainsBooks(title);}
+//        else {
+//            books = libraryService.findAllBooks();
+//        }
+//        return books;
+//    }
 
     @GetMapping("/books/{id}")
     public Lendable getBookById(@PathVariable long id) {
