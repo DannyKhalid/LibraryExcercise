@@ -85,11 +85,6 @@ public class LibraryServiceImpl implements LibraryService {
         libraryRepo.deleteById(id);
     }
 
-//    @Override
-//    public Library findById(long id) {
-//        Optional<Library> books = libraryRepo.findById(id);
-//        return (Books) books.orElseGet(() -> new Books("Nothing found"));
-//    }
 
     @Override
     public Books findBooksById(long id) {

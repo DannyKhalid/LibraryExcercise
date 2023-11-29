@@ -27,5 +27,14 @@ public class Lendable {
     private LibraryUser libraryUser;
 
 
+    @ManyToOne
+    private Librarian librarian;
+
+
+
+
+
+
+
 
 }
