@@ -29,7 +29,11 @@ public class LibraryController {
         List<Lendable> libraries = Collections.emptyList();
         if (StringUtils.isNoneBlank(filter)) {
             libraries = libraryService.findByTitleContains(filter);
-        } else {
+        }
+        if (StringUtils.isNoneBlank((filter))){
+            libraries = libraryService.findByAuthorContains(filter);
+        }
+        else {
             libraries = libraryService.findAll();
         }
         return libraries;

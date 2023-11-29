@@ -66,6 +66,11 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public List<Lendable> findByAuthorContains(String filter) {
+        return libraryRepo.findByAuthorContains(filter);
+    }
+
+    @Override
     public List<Lendable> findByTitleContainsBooks(String filter) {
         return libraryRepo.bookFindByTitleContains(filter);
     }

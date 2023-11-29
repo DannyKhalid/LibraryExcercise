@@ -13,6 +13,8 @@ public interface LibraryRepo extends CrudRepository<Lendable, Long> {
 
 
     List<Lendable> findByTitleContains(String filter);
+
+    List<Lendable> findByAuthorContains(String filter);
     @Query("SELECT b FROM Books b")
     List<Lendable> findAllBooks();
 
@@ -30,6 +32,7 @@ public interface LibraryRepo extends CrudRepository<Lendable, Long> {
     List<Lendable> findAllPeriodicals();
     @Query("SELECT p FROM Periodicals p where p.title like %?1%")
     List<Lendable> periodicalsFindByTitleContains(String filter);
+
 
 
 }
