@@ -1,9 +1,6 @@
 package com.example.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,14 +9,14 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Periodicals {
+public class Periodicals extends Lendable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
 
     private String publicationDate;
-    private String title;
 
+    public Periodicals(String publicationDate){
+        this.publicationDate = publicationDate;
+    }
 
 }

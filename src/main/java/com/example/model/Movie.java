@@ -9,20 +9,19 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Movie {
+public class Movie extends Lendable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
 
     private String leadActor;
     private String director;
     private String screenWriter;
     private String releaseDate;
-    private String genre;
     private int Rating;
+    private String genre;
 
+    public Movie(String genre){
+        this.genre = genre;
+    }
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private AppUsers appUsers;
 }
