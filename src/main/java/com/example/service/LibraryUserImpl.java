@@ -25,7 +25,7 @@ public class LibraryUserImpl implements LibraryUserService {
 
     @Override
     public LibraryUser findById(long id) {
-        return libraryUserRepository.findById(id).orElseGet(null);
+        return libraryUserRepository.findById(id).orElse(new LibraryUser(""));
     }
 
     @Override
@@ -40,4 +40,6 @@ public class LibraryUserImpl implements LibraryUserService {
         librariesItr.forEach(users::add);
         return users;
     }
+
+
 }

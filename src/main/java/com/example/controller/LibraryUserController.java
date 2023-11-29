@@ -1,10 +1,12 @@
 package com.example.controller;
 
+import com.example.model.Lendable;
 import com.example.model.LibraryUser;
 import com.example.service.LibraryUserService;
 import jakarta.websocket.server.PathParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
@@ -28,6 +30,12 @@ public class LibraryUserController {
             users = libraryUserService.findAll();
         }
         return users;
+    }
+
+    @GetMapping("/users/{id}")
+    public LibraryUser getUserById(@PathVariable long id) {
+        return libraryUserService.findById(id);
+
     }
 
 

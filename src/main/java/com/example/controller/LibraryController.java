@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -40,15 +41,18 @@ public class LibraryController {
 
     @GetMapping("/books")
     public ResponseEntity<List<Lendable>> getAllBooks(@RequestParam Map<String, String> allParams) {
+        // Map which stores query parameters with their name and value as strings.
 
         if (allParams.isEmpty()) {
             return ResponseEntity.ok(libraryService.findAllBooks());
+            //finds all books and wraps the result in a (200)ok status
         }
 
 
         List<Lendable> books = Collections.emptyList();
         String title = allParams.get("title");
         String author = allParams.get("author");
+        // Gets values using query parameters title and author
 
         if (StringUtils.isNoneBlank(title)) {
             books = libraryService.findByTitleContains(title);
@@ -64,31 +68,17 @@ public class LibraryController {
 
 
 
-
-
-//    @GetMapping("/books")
-//    public List<Lendable> getAllBooks() {
-//        List<Lendable> books = Collections.emptyList();
-//        books = libraryService.findAllBooks();
-//        return books;}
-
-
-//    @GetMapping("/books")
-//    public List<Lendable> getAllBooks2(@PathParam("title") String title) {
-//        List<Lendable> books = Collections.emptyList();
-//
-//        if (StringUtils.isNoneBlank(title)) {
-//            books = libraryService.findByTitleContainsBooks(title);}
-//        else {
-//            books = libraryService.findAllBooks();
-//        }
-//        return books;
-//    }
-
     @GetMapping("/books/{id}")
     public Lendable getBookById(@PathVariable long id) {
 
         return libraryService.findBooksById(id);
+
+    }
+
+    @GetMapping("/library/{id}")
+    public Optional<Lendable> getLibraryById(@PathVariable long id) {
+
+        return libraryService.findById(id);
 
     }
 

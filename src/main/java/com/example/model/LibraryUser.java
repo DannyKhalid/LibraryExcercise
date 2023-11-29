@@ -27,4 +27,7 @@ public class LibraryUser {
     private int phoneNumber;
     private String email;
 
+    public LibraryUser(String name) {
+        this.name = name;
+    }
 }

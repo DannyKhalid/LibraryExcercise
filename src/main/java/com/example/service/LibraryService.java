@@ -6,6 +6,7 @@ import com.example.model.Movie;
 import com.example.model.Periodicals;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LibraryService {
 
@@ -38,4 +39,6 @@ public interface LibraryService {
     Movie findMovieById(long id);
 
     Periodicals findPeriodicalsById(long id);
+
+    Optional<Lendable> findById(long id);
 }

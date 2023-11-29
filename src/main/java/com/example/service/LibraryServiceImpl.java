@@ -123,4 +123,9 @@ public class LibraryServiceImpl implements LibraryService {
 
         }
     }
+
+    @Override
+    public Optional<Lendable> findById(long id) {
+        return libraryRepo.findById(id);
+    }
 }
